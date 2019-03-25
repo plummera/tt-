@@ -1,0 +1,277 @@
+#ACTION {%0 A pile of gold coins.[%1]}
+{
+	get all.coins
+}
+{5}
+
+#ACTION {%0 starts following you.}
+{
+	group %0
+}
+{5}
+
+#ACTION {%0 tells the group '=%1='}
+{
+	%1 %0
+}
+{5}
+
+#ACTION {A pile of gold coins.}
+{
+	take all.gold
+}
+{5}
+
+#ACTION {H:%0 M:%1 V:%2 >}
+{
+	#variable hp %0;
+	#variable mana %1;
+	#variable move %2;
+	#if {$hp<= 3000}
+	{
+		#delay {5} {gt I need a heal}
+	};
+	#read link
+}
+{5}
+
+#ACTION {The white glow around %0 body fades.}
+{
+	blast
+}
+{5}
+
+#ACTION {You are rescued by Graphix, you are confused!}
+{
+	blast $target
+}
+{5}
+
+#ACTION {You erect a metaphasic shield.}
+{
+	#variable meta 1;
+	gt got that metaphysical thing going on;
+	emote turns translucent and begins to shift space-time.
+}
+{5}
+
+#ACTION {You experience a mental letdown as your blast fizzles.}
+{
+	blast $target
+}
+{5}
+
+#ACTION {You feel someone protecting you.}
+{
+	#variable armor 1;
+	gt Got my vest on;
+	emote straps a bullet-proof vest to his chest.
+}
+{5}
+
+#ACTION {You feel the blessing of a diety upon you.}
+{
+	#variable bless 1;
+	gt Bless'd up!;
+	emote shines a bit more brilliantly than usual.
+}
+{5}
+
+#ACTION {You feel the power of a diety's blessing shielding you.}
+{
+	#variable sanc 1;
+	gt sanc'd up;
+	emote hums powerfully.
+}
+{5}
+
+#ACTION {You have failed to open the portal to summon this individual.}
+{
+	go
+}
+{5}
+
+#ACTION {You receive your share of %0 experience.}
+{
+	#if {$turbo==1 && $ss==1}
+	{
+		summon $target;
+		blast $target
+	};
+	#elseif {$turbo==1}
+	{
+		blast $target
+	};
+	#else
+	{
+		say We're good here.
+	}
+}
+{5}
+
+#ACTION {You send %0 flying into the wall!}
+{
+	blast $target
+}
+{5}
+
+#ACTION {You succede in enhancing your vision.}
+{
+	#variable great 1;
+	gt I can see everything!;
+	emote eyes glows with a brilliant white hue.
+}
+{5}
+
+#ACTION {You summon a flaming aura to deter attackers.}
+{
+	#variable fireshield 1;
+	gt Flame on!;
+	emote erupts in violent flames hotter than the sun.
+}
+{5}
+
+#ACTION {Your protective magic dissipates.}
+{
+	#variable sanc 0
+}
+{5}
+
+#ACTION {��You are surrounded by a strong force shield.}
+{
+	#variable shield 1;
+	emote conjures a giant blue bubble around him.
+}
+{5}
+
+#ACTION {��You are surrounded by a strong force shield.}
+{
+	#variable shield 1;
+	emote conjures a giant blue bubble around him.
+}
+{5}
+
+#ALIAS {go}
+{
+
+	#if {$adren == 0}
+	{
+		adren link
+	}
+
+	#if {$shield == 0}
+	{
+		cast 'shield' link
+	}
+
+	#if {$sanc == 0}
+	{
+		take black-potion;
+		quaff black-potion
+	}
+
+	#if {$ss==1}
+	{
+		summon $target;
+	}
+
+	blast $target
+
+}
+{5}
+
+#ALIAS {kill %0}
+{
+	emote climbs through the %0's shadow and jabs a knife in their thorax;
+	hit $target
+}
+{5}
+
+#ALIAS {powerup}
+{
+	attack 1;
+	attack 6;
+	attack 4;
+	attack 3;
+	shield;
+	adren link;
+	flame;
+	gt =bless=;
+	gt =armor=;
+	cast 'shield' link;
+	great
+}
+{5}
+
+#ALIAS {psych %0}
+{
+	target %0;
+	emote deadlocks $target;
+	blast $target
+}
+{5}
+
+#ALIAS {ss %0}
+{
+	#variable target %0;
+	target %0;
+	go
+}
+{5}
+
+#ALIAS {target %0}
+{
+	#variable target %0;
+	say about to dismantle %0, I'm just sayin
+}
+{5}
+
+#ALIAS {turbossoff}
+{
+	#variable turbo 0
+}
+{5}
+
+#ALIAS {turbosson}
+{
+	#variable turbo 1;
+	#variable ss 1;
+	emote gets a fiery looks in his eyes.
+}
+{5}
+
+#CONFIG           {256 COLORS}  {ON}
+#CONFIG           {AUTO TAB}  {5000}
+#CONFIG           {BUFFER SIZE}  {20000}
+#CONFIG           {CHARSET}  {ASCII}
+#CONFIG           {COLOR PATCH}  {OFF}
+#CONFIG           {COMMAND COLOR}  {<078>}
+#CONFIG           {COMMAND ECHO}  {ON}
+#CONFIG           {CONNECT RETRY}  {0}
+#CONFIG           {HISTORY SIZE}  {1000}
+#CONFIG           {LOG}  {RAW}
+#CONFIG           {PACKET PATCH}  {0.00}
+#CONFIG           {REPEAT CHAR}  {!}
+#CONFIG           {REPEAT ENTER}  {OFF}
+#CONFIG           {SCROLL LOCK}  {ON}
+#CONFIG           {SPEEDWALK}  {OFF}
+#CONFIG           {TINTIN CHAR}  {#}
+#CONFIG           {VERBATIM}  {OFF}
+#CONFIG           {VERBATIM CHAR}  {\}
+#CONFIG           {VERBOSE}  {OFF}
+#CONFIG           {WORDWRAP}  {ON}
+#PATHDIR          {d}  {u}  {32}
+#PATHDIR          {e}  {w}  {2}
+#PATHDIR          {n}  {s}  {1}
+#PATHDIR          {ne}  {sw}  {3}
+#PATHDIR          {nw}  {se}  {9}
+#PATHDIR          {s}  {n}  {4}
+#PATHDIR          {se}  {nw}  {6}
+#PATHDIR          {sw}  {ne}  {12}
+#PATHDIR          {u}  {d}  {16}
+#PATHDIR          {w}  {e}  {8}
+#TICKER           {ticker}  {emote scans the perimeter.}   {79}
+#VARIABLE         {hp}  {5546}
+#VARIABLE         {mana}  {5641}
+#VARIABLE         {move}  {4154}
+
